@@ -234,40 +234,6 @@
             text-align: left;
             cursor: pointer;
         }
-        .card-disabled {
-            cursor: not-allowed;
-            opacity: 0.72;
-        }
-        .card-disabled:hover {
-            transform: none;
-            border-color: var(--border);
-            background: rgba(10, 10, 10, 0.68);
-        }
-        .card-disabled::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            left: 50%;
-            bottom: 24px;
-            transform: translate(-50%, 8px);
-            padding: 8px 12px;
-            border-radius: 10px;
-            background: rgba(8, 8, 10, 0.96);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #fff;
-            font-size: 0.82rem;
-            font-weight: 600;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.2s ease;
-            pointer-events: none;
-        }
-        .card-disabled:hover::after {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, 0);
-        }
-
         .card-tg:hover { border-color: var(--tg-color); }
         .card-tg .card-icon { color: var(--tg-color); }
         .card-ds:hover { border-color: var(--ds-color); }
@@ -332,6 +298,9 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 12px;
         }
+        .download-options-two {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
         .download-option {
             min-height: 0;
             padding: 16px 18px;
@@ -385,6 +354,9 @@
         }
         .download-option-upload .download-option-icon {
             color: #ffc971;
+        }
+        .download-option-vt .download-option-icon {
+            color: #8bc4ff;
         }
 
         body.modal-open { overflow: hidden; }
@@ -515,7 +487,7 @@
                         <p>Скачайте готовый .jar файл и закиньте в папку mods. Идеально для кастомных сборок.</p>
                         <span class="card-link">Выбрать зеркало <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
-                    <a href="#" class="card card-disabled" id="launcher-card" data-tooltip="Лаунчер ещё в разработке" aria-disabled="true" tabindex="-1">
+                    <a href="#" class="card card-action" id="launcher-card">
                         <div class="card-title-row">
                             <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
                             <h3>Свой лаунчер</h3>
@@ -590,6 +562,38 @@
         </div>
     </div>
 
+    <div class="modal-backdrop" id="launcher-modal" aria-hidden="true">
+        <div class="download-modal" role="dialog" aria-modal="true" aria-labelledby="launcher-modal-title">
+            <div class="download-modal-top">
+                <div class="download-modal-brand">
+                    <div class="download-modal-copy">
+                        <h3 id="launcher-modal-title">Скачать лаунчер</h3>
+                    </div>
+                </div>
+                <button type="button" class="modal-close" data-close-modal aria-label="Закрыть окно">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="download-options download-options-two">
+                <a href="https://github.com/PlintusVisuals/plintusvisuals.github.io/releases/download/Launcher/Installer.msi" class="download-option download-option-site" target="_blank" rel="noopener noreferrer">
+                    <div>
+                        <div class="download-option-icon"><i class="fa-solid fa-download"></i></div>
+                        <h4>Скачать</h4>
+                    </div>
+                    <span><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                </a>
+                <a href="https://www.virustotal.com/gui/file/e0fc21cc0b14c01d261857f5c989e503835b55a74bf3778f7a81b70e2f2dfa98?nocache=1" class="download-option download-option-vt" target="_blank" rel="noopener noreferrer">
+                    <div>
+                        <div class="download-option-icon"><i class="fa-solid fa-shield-virus"></i></div>
+                        <h4>VirusTotal</h4>
+                    </div>
+                    <span><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -599,7 +603,7 @@
             const modDownloadTrigger = document.getElementById('mod-download-trigger');
             const launcherCard = document.getElementById('launcher-card');
             const downloadModal = document.getElementById('download-modal');
-            const modalCloseButtons = downloadModal ? downloadModal.querySelectorAll('[data-close-modal]') : [];
+            const launcherModal = document.getElementById('launcher-modal');
 
             if (slider && overlay && line) {
                 const updateCompare = (value) => {
@@ -613,51 +617,61 @@
                 });
             }
 
-            if (modDownloadTrigger && downloadModal) {
+            const modalBindings = [];
+            const setupModal = (trigger, modal) => {
+                if (!trigger || !modal) return;
+
                 let lastFocusedElement = null;
+                const closeButtons = modal.querySelectorAll('[data-close-modal]');
 
                 const closeModal = () => {
-                    downloadModal.classList.remove('open');
-                    downloadModal.setAttribute('aria-hidden', 'true');
-                    document.body.classList.remove('modal-open');
+                    modal.classList.remove('open');
+                    modal.setAttribute('aria-hidden', 'true');
+                    if (!document.querySelector('.modal-backdrop.open')) {
+                        document.body.classList.remove('modal-open');
+                    }
                     if (lastFocusedElement) lastFocusedElement.focus();
                 };
 
                 const openModal = () => {
                     lastFocusedElement = document.activeElement;
-                    downloadModal.classList.add('open');
-                    downloadModal.setAttribute('aria-hidden', 'false');
+                    document.querySelectorAll('.modal-backdrop.open').forEach(openModalElement => {
+                        openModalElement.classList.remove('open');
+                        openModalElement.setAttribute('aria-hidden', 'true');
+                    });
+                    modal.classList.add('open');
+                    modal.setAttribute('aria-hidden', 'false');
                     document.body.classList.add('modal-open');
 
-                    const closeButton = downloadModal.querySelector('[data-close-modal]');
+                    const closeButton = modal.querySelector('[data-close-modal]');
                     if (closeButton) closeButton.focus();
                 };
 
-                modDownloadTrigger.addEventListener('click', (e) => {
+                trigger.addEventListener('click', (e) => {
                     e.preventDefault();
                     openModal();
                 });
 
-                modalCloseButtons.forEach(button => {
+                closeButtons.forEach(button => {
                     button.addEventListener('click', closeModal);
                 });
 
-                downloadModal.addEventListener('click', (e) => {
-                    if (e.target === downloadModal) closeModal();
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
                 });
 
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && downloadModal.classList.contains('open')) {
-                        closeModal();
-                    }
-                });
-            }
+                modalBindings.push({ modal, closeModal });
+            };
 
-            if (launcherCard) {
-                launcherCard.addEventListener('click', (e) => {
-                    e.preventDefault();
+            setupModal(modDownloadTrigger, downloadModal);
+            setupModal(launcherCard, launcherModal);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key !== 'Escape') return;
+                modalBindings.forEach(({ modal, closeModal }) => {
+                    if (modal.classList.contains('open')) closeModal();
                 });
-            }
+            });
 
             const faqItems = document.querySelectorAll('.faq-item');
             faqItems.forEach(item => {
