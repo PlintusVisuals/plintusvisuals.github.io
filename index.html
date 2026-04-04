@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +11,7 @@
     <meta name="language" content="Russian">
     <meta name="revisit-after" content="1 days">
     <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta name="format-detection" content="telephone=no">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Plintus Visuals">
@@ -66,7 +67,7 @@
             position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
             z-index: 1000; display: flex; align-items: center; justify-content: center;
             background: var(--bg-nav); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            width: min(calc(100% - 32px), 420px);
+            width: min(calc(100% - 32px), 520px);
             padding: 10px 14px; border-radius: 100px; border: 1px solid var(--border);
             box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
         }
@@ -198,6 +199,31 @@
         .faq-item.active .faq-answer { grid-template-rows: 1fr; }
 
         .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+        .screenshot-card {
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: #0a0a0a;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .screenshot-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-height: 260px;
+            object-fit: cover;
+        }
+        .screenshot-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.42);
+        }
         
         .card {
             background: rgba(10, 10, 10, 0.68); border: 1px solid var(--border);
@@ -363,14 +389,40 @@
 
         footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--text-200); }
 
+        @media (max-width: 1024px) {
+            .screenshots-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             header {
-                width: calc(100% - 20px);
-                padding: 10px 10px;
+                display: none;
             }
             nav { display: none; }
+            .hero {
+                min-height: auto;
+                padding-top: 36px;
+                padding-bottom: 36px;
+            }
+            .hero p {
+                margin-bottom: 28px;
+            }
+            .btn-group {
+                width: 100%;
+                gap: 10px;
+            }
+            .btn {
+                width: 100%;
+                max-width: 360px;
+                padding: 14px 22px;
+            }
             .hero h1 { font-size: 2.5rem; }
             .about-grid, .cards-grid { grid-template-columns: 1fr; gap: 32px; }
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
             .section { padding: 80px 0; }
             .compare-stage::before,
             .compare-stage::after {
@@ -405,6 +457,7 @@
         <nav>
             <a href="#about">О нас</a>
             <a href="#gallery">Галерея</a>
+            <a href="#screenshots">Скриншоты</a>
             <a href="#faq">FAQ</a>
             <a href="#download">Скачать</a>
         </nav>
@@ -454,6 +507,23 @@
             </div>
         </section>
 
+        <section class="section" id="screenshots">
+            <div class="container fade-up">
+                <div class="section-header">
+                    <h2>Скриншоты</h2>
+                    <p>Реальные кадры из игры с визуалами.</p>
+                </div>
+
+                <div class="screenshots-grid">
+                    <div class="screenshot-card"><img src="./1.png" alt="Скриншот 1"></div>
+                    <div class="screenshot-card"><img src="./2.png" alt="Скриншот 2"></div>
+                    <div class="screenshot-card"><img src="./3.png" alt="Скриншот 3"></div>
+                    <div class="screenshot-card"><img src="./4.png" alt="Скриншот 4"></div>
+                    <div class="screenshot-card"><img src="./5.png" alt="Скриншот 5"></div>
+                </div>
+            </div>
+        </section>
+
         <section class="section" id="faq">
             <div class="container fade-up">
                 <div class="section-header"><h2>Частые вопросы</h2></div>
@@ -466,10 +536,6 @@
                         <div class="faq-question">Считаются ли они софтом? <i class="fa-solid fa-plus faq-icon"></i></div>
                         <div class="faq-answer"><div class="faq-answer-inner"><p>Нет. В них отсутствуют функции автоматизации или читов. Это исключительно эстетические изменения графики.</p></div></div>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question">На каких серверах разрешено? <i class="fa-solid fa-plus faq-icon"></i></div>
-                        <div class="faq-answer"><div class="faq-answer-inner"><p>Мы ведем переговоры с FunTime, SpookyTime, ReallyWorld и HolyWorld. Всегда читайте правила сервера перед игрой.</p></div></div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -479,7 +545,7 @@
                 <div class="section-header"><h2>Начать использовать</h2></div>
 
                 <div class="cards-grid">
-                    <a href="#" class="card card-action" id="mod-download-trigger">
+                    <a href="https://modrinth.com/mod/plintus-visuals-(pvp)" target="_blank" rel="noopener noreferrer" class="card card-action">
                         <div class="card-title-row">
                             <div class="card-icon"><i class="fa-solid fa-cube"></i></div>
                             <h3>Установка модом</h3>
@@ -487,7 +553,7 @@
                         <p>Скачайте готовый .jar файл и закиньте в папку mods. Идеально для кастомных сборок.</p>
                         <span class="card-link">Выбрать зеркало <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
-                    <a href="#" class="card card-action" id="launcher-card">
+                    <a href="https://github.com/PlintusVisuals/plintusvisuals.github.io/releases/download/Launcherv2/Installer.msi" target="_blank" rel="noopener noreferrer" class="card card-action">
                         <div class="card-title-row">
                             <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
                             <h3>Свой лаунчер</h3>
@@ -576,7 +642,7 @@
             </div>
 
             <div class="download-options download-options-two">
-                <a href="https://github.com/PlintusVisuals/plintusvisuals.github.io/releases/download/Launcher/Installer.msi" class="download-option download-option-site" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/PlintusVisuals/plintusvisuals.github.io/releases/download/Launcherv2/Installer.msi" class="download-option download-option-site" target="_blank" rel="noopener noreferrer">
                     <div>
                         <div class="download-option-icon"><i class="fa-solid fa-download"></i></div>
                         <h4>Скачать</h4>
@@ -600,8 +666,8 @@
             const slider = document.getElementById('compare-slider');
             const overlay = document.getElementById('compare-overlay');
             const line = document.getElementById('compare-line');
-            const modDownloadTrigger = document.getElementById('mod-download-trigger');
-            const launcherCard = document.getElementById('launcher-card');
+            const modDownloadTrigger = null;
+            const launcherCard = null;
             const downloadModal = document.getElementById('download-modal');
             const launcherModal = document.getElementById('launcher-modal');
 
