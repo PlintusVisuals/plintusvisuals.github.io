@@ -47,7 +47,7 @@ img{display:block}
 .noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:180px}
 
 #scroll-bar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:10000;will-change:width}
-.desk-nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;background:rgba(8,8,8,.78);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);width:min(calc(100% - 32px),540px);padding:8px 10px;border-radius:100px;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.desk-nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;background:rgba(8,8,8,.78);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);width:min(calc(100% - 32px),780px);padding:8px 10px;border-radius:100px;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.45)}
 .desk-nav a{flex:1;text-align:center;white-space:nowrap;padding:10px 8px;border-radius:999px;font-size:.82rem;font-weight:600;color:var(--t2);transition:.25s}
 .desk-nav a:hover{color:var(--t1);background:rgba(255,255,255,.06)}
 .mob-btn{display:none;position:fixed;top:16px;right:16px;z-index:200;width:48px;height:48px;border-radius:14px;border:1px solid var(--border);background:rgba(8,8,8,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
@@ -112,6 +112,20 @@ img{display:block}
 .compare-line::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;background:radial-gradient(circle at 30% 30%,#fff,#e8edf4 60%,#c8d4e2);border-radius:50%;border:1px solid rgba(255,255,255,.8);box-shadow:0 8px 20px rgba(0,0,0,.3),0 0 0 4px rgba(255,255,255,.04)}
 .compare-line::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:12px;height:8px;z-index:1;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 14' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 7h22'/%3E%3Cpath d='M6 2 1 7l5 5'/%3E%3Cpath d='m18 2 5 5-5 5'/%3E%3C/svg%3E")}
 .compare-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:10}
+.reviews-track{display:flex;gap:16px;width:max-content;padding-right:16px}
+.review-card{width:320px;flex-shrink:0;padding:24px;border-radius:18px;border:1px solid var(--border);background:rgba(255,255,255,.03);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:12px;transition:border-color .3s,box-shadow .3s}
+.review-card:hover{border-color:var(--border-h);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.review-user{display:flex;align-items:center;gap:10px}
+.review-avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent-g),rgba(124,92,252,.1));display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;flex-shrink:0}
+.review-handle{font-weight:700;font-size:.88rem;color:var(--t1)}
+.review-text{font-size:.84rem;color:var(--t2);line-height:1.65}
+.reviews-marquee{overflow:hidden;width:100%;position:relative}
+.reviews-marquee::before,.reviews-marquee::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.reviews-marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.reviews-marquee::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.reviews-track{animation:marquee 50s linear infinite}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
 .screenshots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .screenshot-card{overflow:hidden;border-radius:14px;border:1px solid var(--border);background:var(--bg2);transition:transform .4s cubic-bezier(.4,0,.2,1),border-color .3s,box-shadow .3s;cursor:pointer;position:relative}
 .screenshot-card img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .6s cubic-bezier(.4,0,.2,1)}
@@ -124,6 +138,7 @@ img{display:block}
 .card:hover{transform:translateY(-4px);border-color:var(--border-h)}
 .card-mod{--card-glow:rgba(74,158,255,.06)}
 .card-launch{--card-glow:rgba(255,200,60,.04)}
+.card-java{--card-glow:rgba(234,76,43,.06)}
 .card-tg{--card-glow:rgba(42,171,238,.05)}
 .card-ds{--card-glow:rgba(88,101,242,.05)}
 .card-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
@@ -132,6 +147,7 @@ img{display:block}
 .card-ds .card-icon{background:rgba(88,101,242,.08);color:var(--ds)}
 .card-mod .card-icon{background:rgba(74,158,255,.08);color:var(--accent)}
 .card-launch .card-icon{background:rgba(255,200,60,.08);color:#ffc83c}
+.card-java .card-icon{background:rgba(234,76,43,.08);color:#ea4c2b}
 .card h3{font-size:1.2rem;line-height:1.2}
 .card p{color:var(--t2);flex-grow:1;margin:10px 0 22px;font-size:.9rem;line-height:1.6}
 .card-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.86rem;color:var(--t2);transition:.3s}
@@ -139,6 +155,7 @@ img{display:block}
 .card-action{width:100%;font:inherit;color:inherit;text-align:left;cursor:pointer}
 .card-tg:hover{border-color:rgba(42,171,238,.2)}
 .card-ds:hover{border-color:rgba(88,101,242,.2)}
+.card-java:hover{border-color:rgba(234,76,43,.2)}
 .faq-list{max-width:760px;margin:0 auto;border-top:1px solid var(--border)}
 .faq-item{border-bottom:1px solid var(--border);overflow:hidden}
 .faq-question{display:flex;justify-content:space-between;align-items:center;padding:24px 0;font-size:1.05rem;font-weight:600;cursor:pointer;transition:color .3s;gap:16px;user-select:none;-webkit-tap-highlight-color:transparent}
@@ -220,6 +237,7 @@ footer p{color:var(--t3);font-size:.82rem}
 .hero h1{font-size:1.9rem}
 .about-feats{grid-template-columns:1fr}
 #about{padding-bottom:16px}
+.review-card{width:280px;padding:18px}
 }
 </style>
 </head>
@@ -233,16 +251,20 @@ footer p{color:var(--t3);font-size:.82rem}
 <div class="mob-menu" id="mob-menu">
 <a href="#about" class="mob-link">О нас</a>
 <a href="#install" class="mob-link">Установка</a>
+<a href="#java" class="mob-link">Java</a>
 <a href="#gallery" class="mob-link">Галерея</a>
 <a href="#screenshots" class="mob-link">Скриншоты</a>
+<a href="#reviews" class="mob-link">Отзывы</a>
 <a href="#faq" class="mob-link">FAQ</a>
 <a href="#download" class="mob-link">Скачать</a>
 </div>
 <header class="desk-nav">
 <a href="#about">О нас</a>
 <a href="#install">Установка</a>
+<a href="#java">Java</a>
 <a href="#gallery">Галерея</a>
 <a href="#screenshots">Скриншоты</a>
+<a href="#reviews">Отзывы</a>
 <a href="#faq">FAQ</a>
 <a href="#download">Скачать</a>
 </header>
@@ -320,6 +342,25 @@ footer p{color:var(--t3);font-size:.82rem}
 </div>
 </div>
 </section>
+<section class="section" id="java">
+<div class="container fade-up">
+<div class="section-header">
+<div class="section-label" style="justify-content:center">Требования</div>
+<h2>Скачать Java</h2>
+<p>Установите Java 21 для работы лаунчера</p>
+</div>
+<div style="max-width:480px;margin:0 auto">
+<a href="https://download.oracle.com/java/21/archive/jdk-21.0.9_windows-x64_bin.exe" target="_blank" rel="noopener noreferrer" class="card card-action card-java" style="text-decoration:none;display:flex">
+<div class="card-top">
+<div class="card-icon"><i class="fa-brands fa-java"></i></div>
+<h3>Java 21 JDK</h3>
+</div>
+<p>Официальная сборка от Oracle. Необходима для запуска Fabric 1.21.4.</p>
+<span class="card-link">Скачать <i class="fa-solid fa-arrow-right"></i></span>
+</a>
+</div>
+</div>
+</section>
 <section class="section" id="gallery">
 <div class="container fade-up">
 <div class="section-header">
@@ -350,6 +391,46 @@ footer p{color:var(--t3);font-size:.82rem}
 <div class="screenshot-card"><img src="./3.png" alt="Скриншот 3"></div>
 <div class="screenshot-card"><img src="./4.png" alt="Скриншот 4"></div>
 <div class="screenshot-card"><img src="./5.png" alt="Скриншот 5"></div>
+</div>
+</div>
+</section>
+<section class="section" id="reviews">
+<div class="container fade-up">
+<div class="section-header">
+<div class="section-label" style="justify-content:center">Отзывы</div>
+<h2>Что говорят игроки</h2>
+</div>
+</div>
+<div class="reviews-marquee">
+<div class="reviews-track">
+<div class="review-card"><div class="review-user"><div class="review-avatar">OC</div><span class="review-handle">@onecloud2</span></div><p class="review-text">Данные визуалы это просто лютая имба ведь у них есть 2 выбора скачки, имбовый лаунчер и многое другое</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">ML</div><span class="review-handle">@mouselag</span></div><p class="review-text">Очень хорошие красивые и фишечные визуалы для бесплатного это вообще огонь, играю каждый день с этими визуалами</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">LV</div><span class="review-handle">@LOVEN</span></div><p class="review-text">Визуалы топ</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">AS</div><span class="review-handle">@asalamma864</span></div><p class="review-text">Здравствуйте пользуюсь вашими визуалами очень классные удобные и стильные продолжайте в том же духе и все будет прекрасно</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">ZL</div><span class="review-handle">@ZxLag</span></div><p class="review-text">Визуалы хуйня, моя бабушка даж лучше сделала бы</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">MB</div><span class="review-handle">@maboyy3</span></div><p class="review-text">Ку, вчера поиграл с вашими визуалами, имбуля</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">QD</div><span class="review-handle">@qDORIKp</span></div><p class="review-text">Полинтус визуал имбуличка я с ним играю почти неделю и мне нравится только страшно с ним играть на фт потому что я не знаю забанят меня или нет</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">OI</div><span class="review-handle">@OnyxIce</span></div><p class="review-text">Крч визуал нихуя себе имбовый я ваще доволен во всём чисто пик наху</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">FZ</div><span class="review-handle">@fromz0</span></div><p class="review-text">Визуалы пиздец какие ахуенные играю с того момента когда в вашем тт вышло 1 видео</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">YZ</div><span class="review-handle">@yuzzll</span></div><p class="review-text">Визуалы топ одни из лучших за такую высокую цену как бесплатно лаунчер топчик название топчик</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">SW</div><span class="review-handle">@sw1ftex0</span></div><p class="review-text">Очень топовый визуал советую всем уже рассказал друзьям. Правда на ноутбуке открывается на F5 а потом на F6 не очень удобно а так все норм</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">OD</div><span class="review-handle">@Odinatsyat</span></div><p class="review-text">Лучшие визуалы, понравились больше чем пульс визуапс, спасибо создателям данного мода, очень удобный визуал</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">PC</div><span class="review-handle">@pycodder</span></div><p class="review-text">Это самые имбовые фри визуалы которые только существуют, все нужные функции, удобный хад, красивое меню и многое другое. Лично я рекомендую всем к использованию</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">TA</div><span class="review-handle">@twink_au</span></div><p class="review-text">Визуал ахуеный, проработаный видно что делал супер пупер пупс зачет + реп</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">OC</div><span class="review-handle">@onecloud2</span></div><p class="review-text">Данные визуалы это просто лютая имба ведь у них есть 2 выбора скачки, имбовый лаунчер и многое другое</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">ML</div><span class="review-handle">@mouselag</span></div><p class="review-text">Очень хорошие красивые и фишечные визуалы для бесплатного это вообще огонь, играю каждый день с этими визуалами</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">LV</div><span class="review-handle">@LOVEN</span></div><p class="review-text">Визуалы топ</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">AS</div><span class="review-handle">@asalamma864</span></div><p class="review-text">Здравствуйте пользуюсь вашими визуалами очень классные удобные и стильные продолжайте в том же духе и все будет прекрасно</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">ZL</div><span class="review-handle">@ZxLag</span></div><p class="review-text">Визуалы хуйня, моя бабушка даж лучше сделала бы</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">MB</div><span class="review-handle">@maboyy3</span></div><p class="review-text">Ку, вчера поиграл с вашими визуалами, имбуля</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">QD</div><span class="review-handle">@qDORIKp</span></div><p class="review-text">Полинтус визуал имбуличка я с ним играю почти неделю и мне нравится только страшно с ним играть на фт потому что я не знаю забанят меня или нет</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">OI</div><span class="review-handle">@OnyxIce</span></div><p class="review-text">Крч визуал нихуя себе имбовый я ваще доволен во всём чисто пик наху</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">FZ</div><span class="review-handle">@fromz0</span></div><p class="review-text">Визуалы пиздец какие ахуенные играю с того момента когда в вашем тт вышло 1 видео</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">YZ</div><span class="review-handle">@yuzzll</span></div><p class="review-text">Визуалы топ одни из лучших за такую высокую цену как бесплатно лаунчер топчик название топчик</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">SW</div><span class="review-handle">@sw1ftex0</span></div><p class="review-text">Очень топовый визуал советую всем уже рассказал друзьям. Правда на ноутбуке открывается на F5 а потом на F6 не очень удобно а так все норм</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">OD</div><span class="review-handle">@Odinatsyat</span></div><p class="review-text">Лучшие визуалы, понравились больше чем пульс визуапс, спасибо создателям данного мода, очень удобный визуал</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">PC</div><span class="review-handle">@pycodder</span></div><p class="review-text">Это самые имбовые фри визуалы которые только существуют, все нужные функции, удобный хад, красивое меню и многое другое. Лично я рекомендую всем к использованию</p></div>
+<div class="review-card"><div class="review-user"><div class="review-avatar">TA</div><span class="review-handle">@twink_au</span></div><p class="review-text">Визуал ахуеный, проработаный видно что делал супер пупер пупс зачет + реп</p></div>
 </div>
 </div>
 </section>
@@ -433,7 +514,9 @@ footer p{color:var(--t3);font-size:.82rem}
 <div class="footer-links">
 <a href="#about">О нас</a>
 <a href="#install">Установка</a>
+<a href="#java">Java</a>
 <a href="#gallery">Галерея</a>
+<a href="#reviews">Отзывы</a>
 <a href="#faq">FAQ</a>
 <a href="#download">Скачать</a>
 </div>
